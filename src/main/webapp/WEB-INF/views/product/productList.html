@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    table {
+        margin: auto;
+        border: 2px solid black;
+        margin-left: 30px;
+    }
+
+    tr{
+        border: 2px solid black;
+        margin: auto;
+        padding: 15px;
+    }
+
+    td{
+        margin: auto;
+        border: 2px solid black;
+        text-align: center;
+        padding: 15px;
+        font-weight: bolder;
+    }
+</style>
+<body>
+<p><a th:href="@{/newCart}"><button type="button">Create New Cart</button></a></p>
+<p th:if="${currentCart}" th:text="'CartID: '+${currentCart.getId()}">
+<p><a th:href="@{/viewCart}"><button type="button">View Cart</button></a></p>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h2 style="color: crimson">Product List</h2></legend>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Product Name</td>
+            <td>Price</td>
+            <td>Image</td>
+            <td></td>
+        </tr>
+        <tr th:each="product: ${products}">
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td><img style="width: 150px; height: 100px" th:src="${product.getImage()}"></td>
+            <td><a th:href="@{/__${product.getId()}__/viewProduct}"><button type="button">Add To Cart</button></a></td>
+        </tr>
+    </table>
+    <div style="margin-top: 15px">
+        <a th:href="@{''(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+        <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+        <a th:href="@{''(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+    </div>
+</fieldset>
+</body>
+</html>

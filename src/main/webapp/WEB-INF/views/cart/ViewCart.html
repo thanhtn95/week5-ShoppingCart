@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    table {
+        margin: auto;
+        border: 2px solid black;
+        margin-left: 30px;
+    }
+
+    tr{
+        border: 2px solid black;
+        margin: auto;
+        padding: 15px;
+    }
+
+    td{
+        margin: auto;
+        border: 2px solid black;
+        text-align: center;
+        padding: 15px;
+        font-weight: bolder;
+    }
+</style>
+<body>
+<p><a th:href="@{/}"><button type="button">Back</button></a></p>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h3 style="color: blueviolet">Detail of Cart</h3></legend>
+    <form>
+        <table>
+            <tr>
+                <td>Product Name</td>
+                <td>Unit Price</td>
+                <td>Image</td>
+                <td>Quantity</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr th:each="order: ${cartOrderList}">
+                <td th:text="${order.getProduct().getName()}"></td>
+                <td th:text="${order.getProduct().getPrice()}"></td>
+                <td><img style="width: 150px; height: 100px" th:src="${order.getProduct().getImage()}"></td>
+                <td th:text="${order.getQuantity()}"></td>
+                <td><a th:href="@{/__${order.getId()}__/RemoveFromCart}" onclick="return confirm('Are You Sure?')"><button type="button">Remove Order</button></a></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+<p><h2 style="color: chartreuse" th:text="'Total Cost: '+${totalBill}"></h2></p>
+<p><a th:href="@{/SaveCartOrder}" onclick="return confirm('Are You Sure?')"><button type="button">Check Out</button></a></p>
+</body>
+</html>

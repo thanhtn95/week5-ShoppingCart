@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="'CartID: '+${currentCart.getId()}" ></p>
+<form th:object="${productOrderDetail}" th:action="@{/AddNewOrder}" method="post">
+    <p><input hidden th:name="shoppingCart" th:value="${currentCart.getId()}"></p>
+    <p><input  hidden th:name="product" th:value="${product.getId()}"></p>
+    <label>Product Name: </label>
+    <a th:text="${product.getName()}"></a><br>
+    <label>Product Price: </label>
+    <a th:text="${product.getPrice()}"></a><br>
+    <p>Quantity:&nbsp;<input type="number" th:field="*{quantity}">
+    <p><button type="submit" onclick="return confirm('Are You Sure?')"> Add To Cart</button></p>
+</form>
+</body>
+</html>
